@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A concise design and implementation review for The Wellness Workshop Programs page wireframe.">
+<title>The Wellness Workshop — Programs Page Review</title>
+<style>
+  :root {
+    --ink: #302a2c;
+    --muted: #766b70;
+    --pink: #f7e8ec;
+    --coral: #d97883;
+    --coral-dark: #b95c69;
+    --paper: #fffdfc;
+    --line: #eadfe1;
+    --soft: #fbf4f5;
+    --green: #496e5a;
+    --radius: 18px;
+    --shadow: 0 8px 24px rgba(74, 43, 52, .07);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: #f8f3f3; color: var(--ink);
+    font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  a { color: var(--coral-dark); }
+  .page { width: min(100% - 32px, 940px); margin: 34px auto; }
+  .report {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 24px;
+    overflow: hidden; box-shadow: 0 18px 50px rgba(74, 43, 52, .08);
+  }
+  .topline { height: 7px; background: linear-gradient(90deg, #e8b8c1, var(--coral), #f0c9b9); }
+  header { padding: clamp(28px, 6vw, 58px); background: linear-gradient(135deg, #fffafa, #fbf0f2); }
+  .eyebrow { margin: 0 0 12px; color: var(--coral-dark); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; font-weight: 750; }
+  h1 { max-width: 680px; margin: 0; font-size: clamp(2rem, 5vw, 3.45rem); line-height: 1.08; letter-spacing: -.045em; font-weight: 700; }
+  .intro { max-width: 700px; margin: 20px 0 0; color: var(--muted); font-size: 1.06rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
+  .meta span { padding: 6px 11px; border: 1px solid #ead5da; background: rgba(255,255,255,.7); border-radius: 999px; font-size: .8rem; color: #68575d; }
+  main { padding: clamp(24px, 5vw, 48px); }
+  section + section { margin-top: 38px; }
+  h2 { font-size: 1.25rem; line-height: 1.3; margin: 0 0 14px; letter-spacing: -.02em; }
+  p { margin: 0 0 12px; }
+  .lead { font-size: 1.02rem; color: #5f5559; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+  .item { border: 1px solid var(--line); border-radius: var(--radius); padding: 19px; background: #fff; }
+  .item .num { display: inline-grid; place-items: center; width: 31px; height: 31px; border-radius: 10px; background: var(--pink); color: var(--coral-dark); font-size: .83rem; font-weight: 750; margin-bottom: 10px; }
+  .item h3 { margin: 0 0 6px; font-size: 1rem; }
+  .item p { color: var(--muted); font-size: .92rem; margin: 0; }
+  .callout { padding: 18px 20px; border-left: 3px solid var(--coral); background: var(--soft); border-radius: 0 12px 12px 0; color: #5f5559; }
+  .steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 34px 1fr; gap: 12px; margin: 0 0 16px; }
+  .steps li::before { content: counter(step, decimal-leading-zero); color: var(--coral-dark); font-weight: 800; font-size: .82rem; padding-top: 2px; }
+  .steps strong { display: block; margin-bottom: 2px; }
+  .steps span { color: var(--muted); font-size: .94rem; }
+  .status { display: inline-block; border-radius: 999px; padding: 4px 9px; background: #edf4ef; color: var(--green); font-size: .76rem; font-weight: 750; }
+  footer { padding: 22px clamp(24px, 5vw, 48px); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .82rem; }
+  .actions { display: flex; justify-content: flex-end; margin: 0 0 14px; gap: 8px; }
+  button { border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); padding: 10px 15px; font: inherit; font-size: .86rem; cursor: pointer; box-shadow: 0 3px 10px rgba(74,43,52,.04); transition: transform .18s ease, box-shadow .18s ease; }
+  button:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(74,43,52,.09); }
+  button:focus-visible { outline: 3px solid #d97883; outline-offset: 3px; }
+  @media (max-width: 620px) {
+    .page { width: min(100% - 18px, 940px); margin: 9px auto; }
+    .report { border-radius: 17px; }
+    .grid { grid-template-columns: 1fr; }
+    footer { display: block; }
+    footer span { display: block; margin-top: 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  }
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .page { width: 100%; margin: 0; }
+    .report { border: 0; box-shadow: none; border-radius: 0; }
+    .actions { display: none; }
+    header, main, footer { padding-left: 12mm; padding-right: 12mm; }
+    section, .item, .callout { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="actions">
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+  <article class="report">
+    <div class="topline"></div>
+    <header>
+      <p class="eyebrow">Design review · Client summary</p>
+      <h1>The Wellness Workshop<br>Programs Page</h1>
+      <p class="intro">A concise review of the wireframe improvements made to the Programs page, with a focus on clearer structure, balanced alignment, responsive behaviour and a consistent experience across the wider website.</p>
+      <div class="meta">
+        <span>Concept 01 · Version 03</span>
+        <span>Wireframe stage</span>
+        <span>Existing brand retained</span>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>Purpose of this iteration</h2>
+        <p class="lead">The goal was to improve the layout and interaction details without replacing the website’s established visual identity. The page remains a wireframe: program content, imagery and pricing are intentionally represented with placeholders until they are confirmed.</p>
+      </section>
+
+      <section>
+        <h2>What has been improved</h2>
+        <div class="grid">
+          <div class="item">
+            <span class="num">01</span>
+            <h3>Balanced header alignment</h3>
+            <p>The logo has moved from the centre to the left, aligned with the main content container. Navigation sits centrally and the contact action remains on the right. This distributes visual weight more evenly and creates a clearer reading path.</p>
+          </div>
+          <div class="item">
+            <span class="num">02</span>
+            <h3>Cleaner mobile navigation</h3>
+            <p>The mobile header keeps the logo on the left and groups the actions on the right. The hamburger icon transitions into a close icon, while the menu opens as a clear, spaced panel that is easier to scan and tap.</p>
+          </div>
+          <div class="item">
+            <span class="num">03</span>
+            <h3>More consistent spacing</h3>
+            <p>Alignment, gaps and component spacing are treated more systematically. This gives the header, program cards, calls to action and supporting sections a more cohesive rhythm instead of making each element feel separate.</p>
+          </div>
+          <div class="item">
+            <span class="num">04</span>
+            <h3>Subtle depth and button feedback</h3>
+            <p>Light shadows help key buttons and the mobile menu stand apart from the background. Hover and press states use small lifts, shadow changes and restrained motion to make interactions feel responsive without becoming distracting.</p>
+          </div>
+          <div class="item">
+            <span class="num">05</span>
+            <h3>Micro-interactions across components</h3>
+            <p>Navigation links, dropdowns, cards and buttons receive consistent feedback. The existing cursor treatment remains a desktop enhancement rather than a requirement for using the page.</p>
+          </div>
+          <div class="item">
+            <span class="num">06</span>
+            <h3>Responsive and accessible behaviour</h3>
+            <p>The layout adapts for desktop and mobile widths. Keyboard interaction, visible focus, Escape-to-close behaviour and reduced-motion preferences are considered so the experience is not dependent on a mouse or animation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>What stays consistent</h2>
+        <p>The existing brand palette, logo asset, typography direction, familiar navigation, soft backgrounds, program-card structure and footer approach are retained. The six program cards remain placeholders for layout review; they do not represent a confirmed program count or approved program details.</p>
+        <div class="callout"><strong>Design principle:</strong> refine the experience, don’t redesign the brand. These improvements establish a repeatable pattern that can be applied to other pages only where it supports the existing layout and content.</div>
+      </section>
+
+      <section>
+        <h2>How this can guide the rest of the website</h2>
+        <ol class="steps">
+          <li><div><strong>Use a shared alignment system</strong><span>Keep the logo, page headings and primary content aligned to a consistent container, with predictable spacing across breakpoints.</span></div></li>
+          <li><div><strong>Standardise interactive states</strong><span>Reuse the same button treatments, focus indicators, hover feedback and dropdown behaviour instead of styling each page independently.</span></div></li>
+          <li><div><strong>Keep mobile navigation predictable</strong><span>Apply the same menu layout and tap-friendly spacing throughout the site so visitors do not need to relearn the interface on each page.</span></div></li>
+          <li><div><strong>Preserve page-specific needs</strong><span>Carry over the visual system, but let each page’s content determine its layout. Consistency should not mean forcing every section into identical cards.</span></div></li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Current status</h2>
+        <p><span class="status">Wireframe refinement complete</span></p>
+        <p style="margin-top:10px">This version communicates the intended structure and interaction direction. The next stage is to confirm the final program information, replace placeholders with approved content and imagery, then integrate the page into the live site and test it across real devices and browsers.</p>
+      </section>
+    </main>
+    <footer>
+      <strong>The Wellness Workshop · Programs page review</strong>
+      <span>Prepared for design discussion · Concept 01, Version 03</span>
+    </footer>
+  </article>
+</div>
+</body>
+</html>
